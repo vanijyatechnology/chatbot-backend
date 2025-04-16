@@ -9,7 +9,6 @@ app = FastAPI()
 UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-# Dictionary to hold user sessions and their data
 user_sessions = {}
 
 @app.post("/train")
