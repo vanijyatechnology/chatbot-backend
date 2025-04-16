@@ -43,8 +43,9 @@ async def train(pdf_file: UploadFile = File(None), website_url: str = Form(None)
         "sample": content[:500] + "..."
     }
 
+
 @app.post("/chat")
-async def chat(user_id: str, message: str):
+async def chat(user_id: str = Form(...), message: str = Form(...)):
     # Retrieve the content associated with the user
     if user_id not in user_sessions:
         return JSONResponse(status_code=404, content={"error": "User not found"})
@@ -52,8 +53,7 @@ async def chat(user_id: str, message: str):
     # Get the training content for this user
     user_data = user_sessions[user_id]
     
-    # Simple logic: just return the content that contains the message
-    # You can replace this with an actual AI model logic
+    # Simple logic: Check if the message matches part of the content
     if message.lower() in user_data.lower():
         response = f"Bot: Found a match! Here’s part of the content: {user_data[:500]}..."
     else:
