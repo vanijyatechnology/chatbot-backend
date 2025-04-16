@@ -1,9 +1,8 @@
-import PyPDF2
+from PyPDF2 import PdfReader
 
-def parse_pdf(filepath):
-    content = ""
-    with open(filepath, "rb") as f:
-        reader = PyPDF2.PdfReader(f)
-        for page in reader.pages:
-            content += page.extract_text() or ""
-    return content.strip()
+def parse_pdf(pdf_file_path):
+    reader = PdfReader(pdf_file_path)
+    text = ""
+    for page in reader.pages:
+        text += page.extract_text()
+    return text
